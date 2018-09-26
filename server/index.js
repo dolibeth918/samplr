@@ -2,6 +2,11 @@ const path = require('path');
 const express = require('express');
 const volleyball = require('volleyball');
 const app = express();
+const request = require('request');
+const querystring = require('querystring');
+
+const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = require('../secrets');
+
 module.exports = app;
 
 // Logging middleware
@@ -28,6 +33,46 @@ app.use(
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./api'));
+
+let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:8080/callback';
+
+app.get('/login', (req, res) => {
+  res.redirect(
+    'https://accounts.spotify.com/authorize?' +
+      querystring.stringify({
+        response_type: 'code',
+        client_id: SPOTIFY_CLIENT_ID,
+        scope: 'user-read-private user-read-email',
+        redirect_uri
+      })
+  );
+});
+
+app.get('/callback', (req, res) => {
+  let code = req.query.code || null;
+  let authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    form: {
+      code: code,
+      redirect_uri,
+      grant_type: 'authorization_code'
+    },
+    headers: {
+      Authorization:
+        'Basic ' +
+        new Buffer(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET).toString(
+          'base64'
+        )
+    },
+    json: true
+  };
+  request.post(authOptions, (error, response, body) => {
+    if (error) throw error;
+    const access_token = body.access_token;
+    let uri = process.env.FRONTEND_URI || 'http://localhost:8080';
+    res.redirect(uri + '?access_token=' + access_token);
+  });
+});
 
 // This middleware will catch any URLs resembling a file extension
 // for example: .js, .html, .css
