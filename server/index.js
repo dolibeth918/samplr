@@ -7,6 +7,9 @@ const querystring = require('querystring');
 
 const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = require('../secrets');
 
+// spotify redirect
+let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:8080/callback';
+
 module.exports = app;
 
 // Logging middleware
@@ -34,8 +37,7 @@ app.use(
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./api'));
 
-let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:8080/callback';
-
+// spotify login route
 app.get('/login', (req, res) => {
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
@@ -48,6 +50,7 @@ app.get('/login', (req, res) => {
   );
 });
 
+// callback after the user logs into spotify
 app.get('/callback', (req, res) => {
   let code = req.query.code || null;
   let authOptions = {
@@ -89,16 +92,6 @@ app.use((req, res, next) => {
 // Sends our index.html (the "single page" of our SPA)
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
-});
-
-// Two temporary routes to serve up our HTML mocks
-// We'll remove these when we're done
-app.get('/mock-1', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'juke-mock-1.html'));
-});
-
-app.get('/mock-2', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'juke-mock-2.html'));
 });
 
 // Error catching endware
