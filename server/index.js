@@ -63,9 +63,11 @@ app.get('/callback', (req, res) => {
     headers: {
       Authorization:
         'Basic ' +
-        new Buffer(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET).toString(
-          'base64'
-        )
+        new Buffer(
+          (process.env.SPOTIFY_CLIENT_ID || SPOTIFY_CLIENT_ID) +
+            ':' +
+            (process.env.SPOTIFY_CLIENT_SECRET || SPOTIFY_CLIENT_SECRET)
+        ).toString('base64')
     },
     json: true
   };
@@ -94,7 +96,7 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
 });
 
-// Error catching endware
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err, typeof next);
   console.error(err.stack);
