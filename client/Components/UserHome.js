@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const UserHome = props => {
-  return <h1>Welcome User!</h1>;
-};
+class UserHome extends Component {
+  componentDidMount() {}
+  render() {
+    return <h1>Welcome User!</h1>;
+  }
+}
 
-export default UserHome;
+const mapStateToProps = state => ({
+  accessToken: state.accessToken
+});
+
+export default connect(mapStateToProps)(UserHome);

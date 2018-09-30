@@ -14,7 +14,6 @@ class Main extends Component {
   }
 
   render() {
-    console.log('tha props', this.props);
     return (
       <div id="main" className="row container">
         <h1>Hello from Spotify</h1>
