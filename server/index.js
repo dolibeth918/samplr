@@ -91,9 +91,14 @@ app.use((req, res, next) => {
   }
 });
 
-// Sends our index.html (the "single page" of our SPA)
-app.get('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
+// // Sends our index.html (the "single page" of our SPA)
+// app.get('/', (req, res, next) => {
+//   res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
+// });
+
+// sends index.html
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client/index.html'));
 });
 
 // Error handling middleware

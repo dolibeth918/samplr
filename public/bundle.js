@@ -136,7 +136,15 @@ var Main = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var parsed = _queryString2.default.parse(window.location.search);
-      if (parsed.access_token) this.setState({ accessToken: parsed.access_token });
+      if (parsed.access_token) {
+        this.setState({ accessToken: parsed.access_token });
+        this.props.history.push('/home');
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.setState({ accessToken: '' });
     }
   }, {
     key: 'render',
@@ -165,6 +173,74 @@ exports.default = Main;
 
 /***/ }),
 
+/***/ "./client/Components/UserHome.js":
+/*!***************************************!*\
+  !*** ./client/Components/UserHome.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserHome = function UserHome(props) {
+  return _react2.default.createElement(
+    'h1',
+    null,
+    'Welcome User!'
+  );
+};
+
+exports.default = UserHome;
+
+/***/ }),
+
+/***/ "./client/Components/index.js":
+/*!************************************!*\
+  !*** ./client/Components/index.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Main = __webpack_require__(/*! ./Main */ "./client/Components/Main.js");
+
+Object.defineProperty(exports, 'Main', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Main).default;
+  }
+});
+
+var _UserHome = __webpack_require__(/*! ./UserHome */ "./client/Components/UserHome.js");
+
+Object.defineProperty(exports, 'UserHome', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_UserHome).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
 /***/ "./client/index.js":
 /*!*************************!*\
   !*** ./client/index.js ***!
@@ -185,17 +261,56 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
-var _Main = __webpack_require__(/*! ./Components/Main */ "./client/Components/Main.js");
+var _routes = __webpack_require__(/*! ./routes */ "./client/routes.js");
 
-var _Main2 = _interopRequireDefault(_Main);
+var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(
   _reactRouterDom.BrowserRouter,
   null,
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Main2.default })
+  _react2.default.createElement(_routes2.default, null)
 ), document.getElementById('app'));
+
+/***/ }),
+
+/***/ "./client/routes.js":
+/*!**************************!*\
+  !*** ./client/routes.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _Components = __webpack_require__(/*! ./Components */ "./client/Components/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isLoggedIn = true;
+
+var Routes = function Routes() {
+  return _react2.default.createElement(
+    _reactRouterDom.Switch,
+    null,
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Components.Main }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/home', component: _Components.UserHome })
+  );
+};
+
+exports.default = (0, _reactRouterDom.withRouter)(Routes);
 
 /***/ }),
 
