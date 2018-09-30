@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./client/Main.js":
-/*!************************!*\
-  !*** ./client/Main.js ***!
-  \************************/
+/***/ "./client/Components/Main.js":
+/*!***********************************!*\
+  !*** ./client/Components/Main.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -133,8 +133,8 @@ var Main = function (_Component) {
   }
 
   _createClass(Main, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       var parsed = _queryString2.default.parse(window.location.search);
       if (parsed.access_token) this.setState({ accessToken: parsed.access_token });
     }
@@ -185,7 +185,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
-var _Main = __webpack_require__(/*! ./Main */ "./client/Main.js");
+var _Main = __webpack_require__(/*! ./Components/Main */ "./client/Components/Main.js");
 
 var _Main2 = _interopRequireDefault(_Main);
 

@@ -9,7 +9,7 @@ export default class Main extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let parsed = queryString.parse(window.location.search);
     if (parsed.access_token)
       this.setState({ accessToken: parsed.access_token });
