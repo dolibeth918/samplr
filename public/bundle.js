@@ -86,9 +86,9 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./client/Components/Main.js":
+/***/ "./client/components/Main.js":
 /*!***********************************!*\
-  !*** ./client/Components/Main.js ***!
+  !*** ./client/components/Main.js ***!
   \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -173,9 +173,9 @@ exports.default = Main;
 
 /***/ }),
 
-/***/ "./client/Components/UserHome.js":
+/***/ "./client/components/UserHome.js":
 /*!***************************************!*\
-  !*** ./client/Components/UserHome.js ***!
+  !*** ./client/components/UserHome.js ***!
   \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -205,9 +205,9 @@ exports.default = UserHome;
 
 /***/ }),
 
-/***/ "./client/Components/index.js":
+/***/ "./client/components/index.js":
 /*!************************************!*\
-  !*** ./client/Components/index.js ***!
+  !*** ./client/components/index.js ***!
   \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -219,7 +219,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Main = __webpack_require__(/*! ./Main */ "./client/Components/Main.js");
+var _Main = __webpack_require__(/*! ./Main */ "./client/components/Main.js");
 
 Object.defineProperty(exports, 'Main', {
   enumerable: true,
@@ -228,7 +228,7 @@ Object.defineProperty(exports, 'Main', {
   }
 });
 
-var _UserHome = __webpack_require__(/*! ./UserHome */ "./client/Components/UserHome.js");
+var _UserHome = __webpack_require__(/*! ./UserHome */ "./client/components/UserHome.js");
 
 Object.defineProperty(exports, 'UserHome', {
   enumerable: true,
@@ -295,7 +295,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
-var _Components = __webpack_require__(/*! ./Components */ "./client/Components/index.js");
+var _components = __webpack_require__(/*! ./components */ "./client/components/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -305,8 +305,8 @@ var Routes = function Routes() {
   return _react2.default.createElement(
     _reactRouterDom.Switch,
     null,
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Components.Main }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/home', component: _Components.UserHome })
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _components.Main }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/home', component: _components.UserHome })
   );
 };
 

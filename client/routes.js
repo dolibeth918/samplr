@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { Main, UserHome } from './Components';
+import { Main, UserHome } from './components';
 
 let isLoggedIn = true;
 
