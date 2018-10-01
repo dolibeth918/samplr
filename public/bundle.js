@@ -114,8 +114,6 @@ var _queryString2 = _interopRequireDefault(_queryString);
 
 var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/index.es.js");
 
-var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
-
 var _reducers = __webpack_require__(/*! ../reducers */ "./client/reducers/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -125,18 +123,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var styles = {
-  App: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  TallCard: {
-    marginRight: '24px',
-    flex: '1',
-    position: 'relative'
-  }
-};
 
 var Main = function (_Component) {
   _inherits(Main, _Component);
@@ -193,8 +179,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-var MainWithAccessToStyleObject = (0, _styles.withStyles)(styles)(Main);
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(MainWithAccessToStyleObject);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Main);
 
 /***/ }),
 

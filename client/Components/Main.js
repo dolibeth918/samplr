@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { Card, CardContent, CardActions, Button } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 
 import { getToken } from '../reducers';
-
-const styles = {
-  App: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  TallCard: {
-    marginRight: '24px',
-    flex: '1',
-    position: 'relative'
-  }
-};
 
 class Main extends Component {
   componentDidMount() {
@@ -49,8 +36,7 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const MainWithAccessToStyleObject = withStyles(styles)(Main);
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainWithAccessToStyleObject);
+)(Main);
