@@ -4,6 +4,7 @@ import queryString from 'query-string';
 import { Button } from '@material-ui/core';
 
 import { getToken } from '../reducers';
+import SearchSongs from './SearchSongs';
 
 class Main extends Component {
   componentDidMount() {
@@ -17,7 +18,8 @@ class Main extends Component {
   render() {
     return (
       <div id="main" className="row container">
-        <h1>Hello from Spotify</h1>
+        <h1>Search for song samples</h1>
+        <SearchSongs />
         <Button color="primary" href="/login">
           Login with Spotify
         </Button>

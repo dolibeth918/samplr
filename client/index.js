@@ -19,12 +19,12 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
-    <Provider store={store}>
+  <Provider store={store}>
+    <MuiThemeProvider theme={theme}>
       <Router>
         <Routes />
       </Router>
-    </Provider>
-  </MuiThemeProvider>,
+    </MuiThemeProvider>
+  </Provider>,
   document.getElementById('app')
 );

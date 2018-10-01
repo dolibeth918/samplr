@@ -116,6 +116,10 @@ var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@materi
 
 var _reducers = __webpack_require__(/*! ../reducers */ "./client/reducers/index.js");
 
+var _SearchSongs = __webpack_require__(/*! ./SearchSongs */ "./client/components/SearchSongs.js");
+
+var _SearchSongs2 = _interopRequireDefault(_SearchSongs);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -151,8 +155,9 @@ var Main = function (_Component) {
         _react2.default.createElement(
           'h1',
           null,
-          'Hello from Spotify'
+          'Search for song samples'
         ),
+        _react2.default.createElement(_SearchSongs2.default, null),
         _react2.default.createElement(
           _core.Button,
           { color: 'primary', href: '/login' },
@@ -207,6 +212,10 @@ var _core = __webpack_require__(/*! @material-ui/core/ */ "./node_modules/@mater
 
 var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
 
+var _SinglePlaylist = __webpack_require__(/*! ./SinglePlaylist */ "./client/components/SinglePlaylist.js");
+
+var _SinglePlaylist2 = _interopRequireDefault(_SinglePlaylist);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var styles = function styles(theme) {
@@ -223,27 +232,22 @@ var styles = function styles(theme) {
 };
 
 var Playlists = function Playlists(props) {
-  var playlists = props.playlists;
+  var playlists = props.playlists,
+      classes = props.classes;
+
   return _react2.default.createElement(
     'div',
-    { className: props.classes.root },
+    { className: classes.root },
     _react2.default.createElement(
       _core.Grid,
       { container: true, spacing: 24, justify: 'space-evenly' },
       playlists.map(function (playlist) {
-        return _react2.default.createElement(
-          _core.Grid,
-          { key: playlist.id, item: true, xs: 3 },
-          _react2.default.createElement(
-            _core.Paper,
-            { className: props.classes.paper },
-            _react2.default.createElement(
-              'h1',
-              null,
-              playlist.name
-            )
-          )
-        );
+        return _react2.default.createElement(_SinglePlaylist2.default, {
+          key: playlist.id,
+          img: playlist.images[0].url,
+          name: playlist.name,
+          href: playlist.href
+        });
       })
     )
   );
@@ -257,6 +261,220 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var playlistsWithStyles = (0, _styles.withStyles)(styles)(Playlists);
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(playlistsWithStyles);
+
+/***/ }),
+
+/***/ "./client/components/SearchSongs.js":
+/*!******************************************!*\
+  !*** ./client/components/SearchSongs.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+
+var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/index.es.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      width: 200
+    },
+    dense: {
+      marginTop: 19
+    },
+    menu: {
+      width: 200
+    }
+  };
+};
+
+var SearchSongs = function SearchSongs(props) {
+  return _react2.default.createElement(
+    'form',
+    { className: props.classes.container, noValidate: true, autoComplete: 'off' },
+    _react2.default.createElement(_core.TextField, {
+      id: 'standard-full-width',
+      style: { margin: 8 },
+      placeholder: 'Enter song name',
+      helperText: 'enter a song name to find samples it used',
+      fullWidth: true,
+      margin: 'normal',
+      InputLabelProps: {
+        shrink: true
+      }
+    })
+  );
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    accessToken: state.accessToken
+  };
+};
+
+var searchWithStyles = (0, _styles.withStyles)(styles)(SearchSongs);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(searchWithStyles);
+
+/***/ }),
+
+/***/ "./client/components/SinglePlaylist.js":
+/*!*********************************************!*\
+  !*** ./client/components/SinglePlaylist.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+
+var _Card = __webpack_require__(/*! @material-ui/core/Card */ "./node_modules/@material-ui/core/Card/index.js");
+
+var _Card2 = _interopRequireDefault(_Card);
+
+var _CardContent = __webpack_require__(/*! @material-ui/core/CardContent */ "./node_modules/@material-ui/core/CardContent/index.js");
+
+var _CardContent2 = _interopRequireDefault(_CardContent);
+
+var _CardMedia = __webpack_require__(/*! @material-ui/core/CardMedia */ "./node_modules/@material-ui/core/CardMedia/index.js");
+
+var _CardMedia2 = _interopRequireDefault(_CardMedia);
+
+var _IconButton = __webpack_require__(/*! @material-ui/core/IconButton */ "./node_modules/@material-ui/core/IconButton/index.js");
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _Typography = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/Typography/index.js");
+
+var _Typography2 = _interopRequireDefault(_Typography);
+
+var _SkipPrevious = __webpack_require__(/*! @material-ui/icons/SkipPrevious */ "./node_modules/@material-ui/icons/SkipPrevious.js");
+
+var _SkipPrevious2 = _interopRequireDefault(_SkipPrevious);
+
+var _PlayArrow = __webpack_require__(/*! @material-ui/icons/PlayArrow */ "./node_modules/@material-ui/icons/PlayArrow.js");
+
+var _PlayArrow2 = _interopRequireDefault(_PlayArrow);
+
+var _SkipNext = __webpack_require__(/*! @material-ui/icons/SkipNext */ "./node_modules/@material-ui/icons/SkipNext.js");
+
+var _SkipNext2 = _interopRequireDefault(_SkipNext);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    card: {
+      display: 'flex'
+    },
+    details: {
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    content: {
+      flex: '1 0 auto'
+    },
+    cover: {
+      width: 151,
+      height: 151
+    },
+    controls: {
+      display: 'flex',
+      alignItems: 'center',
+      paddingLeft: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit
+    },
+    playIcon: {
+      height: 38,
+      width: 38
+    }
+  };
+};
+
+var Playlist = function Playlist(props) {
+  var classes = props.classes;
+
+  return _react2.default.createElement(
+    _Card2.default,
+    { className: classes.card },
+    _react2.default.createElement(
+      'div',
+      { className: classes.details },
+      _react2.default.createElement(
+        _CardContent2.default,
+        { className: classes.content },
+        _react2.default.createElement(
+          _Typography2.default,
+          { variant: 'headline' },
+          props.name
+        ),
+        _react2.default.createElement(
+          _Typography2.default,
+          { variant: 'subheading', color: 'textSecondary' },
+          'Eventually Artist Name'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: classes.controls },
+        _react2.default.createElement(_IconButton2.default, { 'aria-label': 'Previous' }),
+        _react2.default.createElement(
+          _IconButton2.default,
+          { 'aria-label': 'Play/pause' },
+          _react2.default.createElement(_PlayArrow2.default, { className: classes.playIcon })
+        ),
+        _react2.default.createElement(_IconButton2.default, { 'aria-label': 'Next' })
+      )
+    ),
+    _react2.default.createElement(_CardMedia2.default, {
+      className: classes.cover,
+      image: props.img,
+      title: 'Live from space album cover'
+    })
+  );
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    playlists: state.playlists
+  };
+};
+
+var playlistWithStyles = (0, _styles.withStyles)(styles)(Playlist);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(playlistWithStyles);
 
 /***/ }),
 
@@ -431,11 +649,11 @@ var theme = (0, _styles.createMuiTheme)({
 });
 
 _reactDom2.default.render(_react2.default.createElement(
-  _styles.MuiThemeProvider,
-  { theme: theme },
+  _reactRedux.Provider,
+  { store: _store2.default },
   _react2.default.createElement(
-    _reactRedux.Provider,
-    { store: _store2.default },
+    _styles.MuiThemeProvider,
+    { theme: theme },
     _react2.default.createElement(
       _reactRouterDom.BrowserRouter,
       null,
@@ -34903,6 +35121,376 @@ var withWidth = function withWidth() {
 };
 
 var _default = withWidth;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/PlayArrow.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@material-ui/icons/PlayArrow.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  d: "M8 5v14l11-7z"
+}), _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+})), 'PlayArrow');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/SkipNext.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material-ui/icons/SkipNext.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  d: "M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"
+}), _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+})), 'SkipNext');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/SkipPrevious.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/icons/SkipPrevious.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  d: "M6 6h2v12H6zm3.5 6l8.5 6V6z"
+}), _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+})), 'SkipPrevious');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/node_modules/recompose/getDisplayName.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/node_modules/recompose/getDisplayName.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var getDisplayName = function getDisplayName(Component) {
+  if (typeof Component === 'string') {
+    return Component;
+  }
+
+  if (!Component) {
+    return undefined;
+  }
+
+  return Component.displayName || Component.name || 'Component';
+};
+
+var _default = getDisplayName;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/node_modules/recompose/pure.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/node_modules/recompose/pure.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _shouldUpdate = _interopRequireDefault(__webpack_require__(/*! ./shouldUpdate */ "./node_modules/@material-ui/icons/node_modules/recompose/shouldUpdate.js"));
+
+var _shallowEqual = _interopRequireDefault(__webpack_require__(/*! ./shallowEqual */ "./node_modules/@material-ui/icons/node_modules/recompose/shallowEqual.js"));
+
+var _setDisplayName = _interopRequireDefault(__webpack_require__(/*! ./setDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/setDisplayName.js"));
+
+var _wrapDisplayName = _interopRequireDefault(__webpack_require__(/*! ./wrapDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/wrapDisplayName.js"));
+
+var pure = function pure(BaseComponent) {
+  var hoc = (0, _shouldUpdate.default)(function (props, nextProps) {
+    return !(0, _shallowEqual.default)(props, nextProps);
+  });
+
+  if (true) {
+    return (0, _setDisplayName.default)((0, _wrapDisplayName.default)(BaseComponent, 'pure'))(hoc(BaseComponent));
+  }
+
+  return hoc(BaseComponent);
+};
+
+var _default = pure;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/node_modules/recompose/setDisplayName.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/node_modules/recompose/setDisplayName.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _setStatic = _interopRequireDefault(__webpack_require__(/*! ./setStatic */ "./node_modules/@material-ui/icons/node_modules/recompose/setStatic.js"));
+
+var setDisplayName = function setDisplayName(displayName) {
+  return (0, _setStatic.default)('displayName', displayName);
+};
+
+var _default = setDisplayName;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/node_modules/recompose/setStatic.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/node_modules/recompose/setStatic.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var setStatic = function setStatic(key, value) {
+  return function (BaseComponent) {
+    /* eslint-disable no-param-reassign */
+    BaseComponent[key] = value;
+    /* eslint-enable no-param-reassign */
+
+    return BaseComponent;
+  };
+};
+
+var _default = setStatic;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/node_modules/recompose/shallowEqual.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/node_modules/recompose/shallowEqual.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _shallowEqual = _interopRequireDefault(__webpack_require__(/*! fbjs/lib/shallowEqual */ "./node_modules/fbjs/lib/shallowEqual.js"));
+
+var _default = _shallowEqual.default;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/node_modules/recompose/shouldUpdate.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/node_modules/recompose/shouldUpdate.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inheritsLoose */ "./node_modules/@babel/runtime/helpers/inheritsLoose.js"));
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _setDisplayName = _interopRequireDefault(__webpack_require__(/*! ./setDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/setDisplayName.js"));
+
+var _wrapDisplayName = _interopRequireDefault(__webpack_require__(/*! ./wrapDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/wrapDisplayName.js"));
+
+var shouldUpdate = function shouldUpdate(test) {
+  return function (BaseComponent) {
+    var factory = (0, _react.createFactory)(BaseComponent);
+
+    var ShouldUpdate =
+    /*#__PURE__*/
+    function (_Component) {
+      (0, _inheritsLoose2.default)(ShouldUpdate, _Component);
+
+      function ShouldUpdate() {
+        return _Component.apply(this, arguments) || this;
+      }
+
+      var _proto = ShouldUpdate.prototype;
+
+      _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+        return test(this.props, nextProps);
+      };
+
+      _proto.render = function render() {
+        return factory(this.props);
+      };
+
+      return ShouldUpdate;
+    }(_react.Component);
+
+    if (true) {
+      return (0, _setDisplayName.default)((0, _wrapDisplayName.default)(BaseComponent, 'shouldUpdate'))(ShouldUpdate);
+    }
+
+    return ShouldUpdate;
+  };
+};
+
+var _default = shouldUpdate;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/node_modules/recompose/wrapDisplayName.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/node_modules/recompose/wrapDisplayName.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _getDisplayName = _interopRequireDefault(__webpack_require__(/*! ./getDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/getDisplayName.js"));
+
+var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
+  return hocName + "(" + (0, _getDisplayName.default)(BaseComponent) + ")";
+};
+
+var _default = wrapDisplayName;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/utils/createSvgIcon.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/utils/createSvgIcon.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _pure = _interopRequireDefault(__webpack_require__(/*! recompose/pure */ "./node_modules/@material-ui/icons/node_modules/recompose/pure.js"));
+
+var _SvgIcon = _interopRequireDefault(__webpack_require__(/*! @material-ui/core/SvgIcon */ "./node_modules/@material-ui/core/SvgIcon/index.js"));
+
+function createSvgIcon(path, displayName) {
+  var Icon = function Icon(props) {
+    return _react.default.createElement(_SvgIcon.default, props, path);
+  };
+
+  Icon.displayName = "".concat(displayName, "Icon");
+  Icon = (0, _pure.default)(Icon);
+  Icon.muiName = 'SvgIcon';
+  return Icon;
+}
+
+;
+var _default = createSvgIcon;
 exports.default = _default;
 
 /***/ }),
@@ -81522,7 +82110,7 @@ if (true) {
 'use strict';
 
 var _assign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
-var checkPropTypes = __webpack_require__(/*! prop-types/checkPropTypes */ "./node_modules/prop-types/checkPropTypes.js");
+var checkPropTypes = __webpack_require__(/*! prop-types/checkPropTypes */ "./node_modules/react/node_modules/prop-types/checkPropTypes.js");
 
 // TODO: this is special because it gets imported during build.
 
@@ -83247,6 +83835,133 @@ module.exports = react;
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react.development.js */ "./node_modules/react/cjs/react.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/react/node_modules/prop-types/checkPropTypes.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/react/node_modules/prop-types/checkPropTypes.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var printWarning = function() {};
+
+if (true) {
+  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "./node_modules/react/node_modules/prop-types/lib/ReactPropTypesSecret.js");
+  var loggedTypeFailures = {};
+
+  printWarning = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+/**
+ * Assert that the values match with the type specs.
+ * Error messages are memorized and will only be shown once.
+ *
+ * @param {object} typeSpecs Map of name to a ReactPropType
+ * @param {object} values Runtime values that need to be type-checked
+ * @param {string} location e.g. "prop", "context", "child context"
+ * @param {string} componentName Name of the component for error messages.
+ * @param {?Function} getStack Returns the component stack.
+ * @private
+ */
+function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+  if (true) {
+    for (var typeSpecName in typeSpecs) {
+      if (typeSpecs.hasOwnProperty(typeSpecName)) {
+        var error;
+        // Prop type validation may throw. In case they do, we don't want to
+        // fail the render phase where it didn't fail before. So we log it.
+        // After these have been cleaned up, we'll let them throw.
+        try {
+          // This is intentionally an invariant that gets caught. It's the same
+          // behavior as without this statement except with a better message.
+          if (typeof typeSpecs[typeSpecName] !== 'function') {
+            var err = Error(
+              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
+              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
+            );
+            err.name = 'Invariant Violation';
+            throw err;
+          }
+          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+        } catch (ex) {
+          error = ex;
+        }
+        if (error && !(error instanceof Error)) {
+          printWarning(
+            (componentName || 'React class') + ': type specification of ' +
+            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
+            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
+            'You may have forgotten to pass an argument to the type checker ' +
+            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
+            'shape all require an argument).'
+          )
+
+        }
+        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+          // Only monitor this failure once because there tends to be a lot of the
+          // same error.
+          loggedTypeFailures[error.message] = true;
+
+          var stack = getStack ? getStack() : '';
+
+          printWarning(
+            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
+          );
+        }
+      }
+    }
+  }
+}
+
+module.exports = checkPropTypes;
+
+
+/***/ }),
+
+/***/ "./node_modules/react/node_modules/prop-types/lib/ReactPropTypesSecret.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react/node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
 
 
 /***/ }),

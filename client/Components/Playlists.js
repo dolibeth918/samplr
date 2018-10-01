@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Grid, Paper } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
 
+import SinglePlaylist from './SinglePlaylist';
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -15,19 +17,18 @@ const styles = theme => ({
 });
 
 const Playlists = props => {
-  const playlists = props.playlists;
+  const { playlists, classes } = props;
   return (
-    <div className={props.classes.root}>
+    <div className={classes.root}>
       <Grid container spacing={24} justify="space-evenly">
-        {playlists.map(playlist => {
-          return (
-            <Grid key={playlist.id} item xs={3}>
-              <Paper className={props.classes.paper}>
-                <h1>{playlist.name}</h1>
-              </Paper>
-            </Grid>
-          );
-        })}
+        {playlists.map(playlist => (
+          <SinglePlaylist
+            key={playlist.id}
+            img={playlist.images[0].url}
+            name={playlist.name}
+            href={playlist.href}
+          />
+        ))}
       </Grid>
     </div>
   );
