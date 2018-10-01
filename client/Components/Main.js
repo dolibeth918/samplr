@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import { Card, CardContent, CardActions, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import { getToken } from '../reducers';
+
+const styles = {
+  App: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  TallCard: {
+    marginRight: '24px',
+    flex: '1',
+    position: 'relative'
+  }
+};
 
 class Main extends Component {
   componentDidMount() {
@@ -17,7 +31,9 @@ class Main extends Component {
     return (
       <div id="main" className="row container">
         <h1>Hello from Spotify</h1>
-        <a href="/login">Login with Spotify</a>
+        <Button color="primary" href="/login">
+          Login with Spotify
+        </Button>
       </div>
     );
   }
@@ -33,7 +49,8 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
+const MainWithAccessToStyleObject = withStyles(styles)(Main);
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main);
+)(MainWithAccessToStyleObject);
