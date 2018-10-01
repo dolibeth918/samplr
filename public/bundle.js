@@ -183,6 +183,83 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
+/***/ "./client/components/Playlists.js":
+/*!****************************************!*\
+  !*** ./client/components/Playlists.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _core = __webpack_require__(/*! @material-ui/core/ */ "./node_modules/@material-ui/core/index.es.js");
+
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      flexGrow: 1
+    },
+    paper: {
+      padding: theme.spacing.unit * 2,
+      textAlign: 'center',
+      color: theme.palette.text.secondary
+    }
+  };
+};
+
+var Playlists = function Playlists(props) {
+  var playlists = props.playlists;
+  return _react2.default.createElement(
+    'div',
+    { className: props.classes.root },
+    _react2.default.createElement(
+      _core.Grid,
+      { container: true, spacing: 24, justify: 'space-evenly' },
+      playlists.map(function (playlist) {
+        return _react2.default.createElement(
+          _core.Grid,
+          { key: playlist.id, item: true, xs: 3 },
+          _react2.default.createElement(
+            _core.Paper,
+            { className: props.classes.paper },
+            _react2.default.createElement(
+              'h1',
+              null,
+              playlist.name
+            )
+          )
+        );
+      })
+    )
+  );
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    playlists: state.playlists
+  };
+};
+
+var playlistsWithStyles = (0, _styles.withStyles)(styles)(Playlists);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(playlistsWithStyles);
+
+/***/ }),
+
 /***/ "./client/components/UserHome.js":
 /*!***************************************!*\
   !*** ./client/components/UserHome.js ***!
@@ -204,6 +281,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _Playlists = __webpack_require__(/*! ./Playlists */ "./client/components/Playlists.js");
+
+var _Playlists2 = _interopRequireDefault(_Playlists);
 
 var _playlists = __webpack_require__(/*! ../reducers/playlists */ "./client/reducers/playlists.js");
 
@@ -233,9 +314,14 @@ var UserHome = function (_Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'h1',
+        'div',
         null,
-        'Welcome User!'
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Welcome User!'
+        ),
+        _react2.default.createElement(_Playlists2.default, null)
       );
     }
   }]);

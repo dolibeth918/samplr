@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Playlists from './Playlists';
 
 import { fetchPlaylists } from '../reducers/playlists';
 
@@ -8,7 +9,12 @@ class UserHome extends Component {
     this.props.fetchPlaylists(this.props.accessToken);
   }
   render() {
-    return <h1>Welcome User!</h1>;
+    return (
+      <div>
+        <h1>Welcome User!</h1>
+        <Playlists />
+      </div>
+    );
   }
 }
 
